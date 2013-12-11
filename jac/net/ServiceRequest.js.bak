@@ -3,6 +3,8 @@
  * User: Jake
  */
 
+//TODO: refactor duplicate code, the actual submit isn't very DRY
+
 define(['jac/utils/ObjUtils', 'jac/events/EventDispatcher', 'jac/utils/EventUtils', 'jac/utils/NetUtils',
 		'jac/net/events/ServReqEvent','jac/net/events/ServReqProgressEvent'],
 	function(ObjUtils, EventDispatcher, EventUtils, NetUtils, ServReqEvent, ServReqProgressEvent) {
@@ -162,7 +164,25 @@ define(['jac/utils/ObjUtils', 'jac/events/EventDispatcher', 'jac/utils/EventUtil
 					http.send(this.getUrlVarsString());
 				}
 
-			}
+			} else if(this.getReqMethod() === 'DELETE'){
+                //set up query string
+				var query1 = '';
+				var urlVarsString1 = this.getUrlVarsString();
+				if(urlVarsString !== ''){
+					query1 = '?' + urlVarsString1;
+				}
+
+				http.open('DELETE', this.getUrl() + query1, this.isAsync, this.userName, this.password);
+
+				for(var header1 in this.requestHeaders){
+					if(this.requestHeaders.hasOwnProperty(header1)){
+						http.setRequestHeader(header1, this.requestHeaders[header1]);
+					}
+				}
+
+				http.responseType = this.responseType;
+				http.send(null);
+            }
 		};
 
 	    ServiceRequest.prototype.abort = function(){

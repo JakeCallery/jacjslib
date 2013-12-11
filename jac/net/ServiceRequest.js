@@ -5,9 +5,17 @@
 
 //TODO: refactor duplicate code, the actual submit isn't very DRY
 
-define(['jac/utils/ObjUtils', 'jac/events/EventDispatcher', 'jac/utils/EventUtils', 'jac/utils/NetUtils',
-		'jac/net/events/ServReqEvent','jac/net/events/ServReqProgressEvent'],
-	function(ObjUtils, EventDispatcher, EventUtils, NetUtils, ServReqEvent, ServReqProgressEvent) {
+define([
+    'jac/utils/ObjUtils',
+    'jac/events/EventDispatcher',
+    'jac/utils/EventUtils',
+    'jac/utils/NetUtils',
+	'jac/net/events/ServReqEvent',
+    'jac/net/events/ServReqProgressEvent',
+    'jac/net/events/ServReqErrorEvent'
+],
+	function(ObjUtils, EventDispatcher, EventUtils, NetUtils, ServReqEvent,
+             ServReqProgressEvent,ServReqErrorEvent) {
     return (function(){
     
         /**
