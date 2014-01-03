@@ -82,6 +82,7 @@ function(BaseTarget, LogLevel, VerboseLevel, ParsedStackTrace){
 				//Loop through targets, and output if needed
 			    for(var i = 0; i < Logger.targetList.length; i++){
 				    var output = '';
+					var outputArray = [];
 				    var target = Logger.targetList[i];
 					if(target.isEnabled && ($logLevel & Logger.levelFilter)){
 						//filter on tags
@@ -98,13 +99,9 @@ function(BaseTarget, LogLevel, VerboseLevel, ParsedStackTrace){
 								output += ']';
 							}
 
-							if(Logger.verboseFilter === 0){
-								//Normal output only
-								output += $args.join(',');
-							}
-							else {
+							if(Logger.verboseFilter !== 0){
 								//Use full stack trace
-								output += (Logger.buildOutput() + ' ' + $args.join(','));
+								output += Logger.buildOutput() + ' ';
 							}
 
 							if(Logger.isStringFilterEnabled && Logger.stringFilterList.length > 0 && !(LogLevel & LogLevel.WARNING)){
@@ -122,7 +119,9 @@ function(BaseTarget, LogLevel, VerboseLevel, ParsedStackTrace){
 									}
 
 									if(str.search(re) !== -1){
-										target.output(output);
+										outputArray = $args;
+										outputArray.unshift(output);
+										target.output.apply(target, outputArray);
 										break;
 									}
 
@@ -130,7 +129,9 @@ function(BaseTarget, LogLevel, VerboseLevel, ParsedStackTrace){
 
 							} else {
 								//final output
-								target.output(output);
+								outputArray = $args;
+								outputArray.unshift(output);
+								target.output.apply(target, outputArray);
 							}
 						}
 					}
