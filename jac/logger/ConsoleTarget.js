@@ -37,17 +37,10 @@ function(BaseTarget, ObjUtils, LogEvent){
 		    if(this.isEnabled){
 			    var self = this;
 		        ConsoleTarget.superClass.output.call(self, arguments);
+
 				if(this.getHasConsoleLog()){
-					var list = Array.prototype.slice.call(arguments),
-						pieces = [],
-						i = 0,
-						len = list.length;
-
-					for (i; i < len; i+=1) {
-						pieces.push(list[i]);
-					}
-					console.log.apply(console, pieces);
-
+					var list = Array.prototype.slice.call(arguments,0);
+					console.log.apply(console, list);
 					this.dispatchEvent(new LogEvent(LogEvent.TARGET_UPDATED));
 				}
 		    }

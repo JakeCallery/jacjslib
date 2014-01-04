@@ -82,7 +82,7 @@ function(BaseTarget, LogLevel, VerboseLevel, ParsedStackTrace){
 				//Loop through targets, and output if needed
 			    for(var i = 0; i < Logger.targetList.length; i++){
 				    var output = '';
-					var outputArray = [];
+				    var outputArray = [];
 				    var target = Logger.targetList[i];
 					if(target.isEnabled && ($logLevel & Logger.levelFilter)){
 						//filter on tags
@@ -158,7 +158,7 @@ function(BaseTarget, LogLevel, VerboseLevel, ParsedStackTrace){
 			    if(this.verboseFilter & VerboseLevel.TIME){
 				    var timeDiff = new Date().getTime() - Logger.baseTime;
 				    var milli = (timeDiff % 1000).toString();
-				    var seconds = Math.floor(timeDiff / 1000).toString();
+				    var seconds = (Math.floor(timeDiff / 1000) % 60).toString();
 				    var minutes = Math.floor(timeDiff / 60000).toString();
 
 				    if(milli.length < 2){
