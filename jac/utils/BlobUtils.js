@@ -15,7 +15,7 @@ function(){
 			blobData[i] = $bs.charCodeAt(i);
 		}
 
-		return new Blob([blobData], $options);
+		return new Blob([blobData.buffer], $options);
 	};
 
     BlobUtils.dataUrlToBlob = function($dataUrl, $options){
