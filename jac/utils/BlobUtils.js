@@ -26,7 +26,7 @@ function(){
             blobData[i] = imageData.charCodeAt(i);
         }
 
-        return new Blob([blobData], $options);
+        return new Blob([blobData.buffer], $options);
 
     };
 
