@@ -30,27 +30,32 @@ function(){
 		        this.hasStackTrace = true;
 		        var functionLine = this.getFunctionLine(stackList);
 
-		        this.functionName = '{anonymous}';
-		        if(functionLine.indexOf('{anonymous}()@') < 0){
-			        //we have a real function name
-			        this.functionName = functionLine.split(' ')[0];
-			        this.functionName = this.functionName.split('@')[0];
-		        }
+                if(functionLine !== null && functionLine !== undefined){
+                    this.functionName = '{anonymous}';
+                    if(functionLine.indexOf('{anonymous}()@') < 0){
+                        //we have a real function name
+                        this.functionName = functionLine.split(' ')[0];
+                        this.functionName = this.functionName.split('@')[0];
+                    }
 
-		        functionLine = functionLine.replace(/(\(|\))/g,'');
+                    functionLine = functionLine.replace(/(\(|\))/g,'');
 
-		        tokens = functionLine.split('://');
-		        protocol = tokens[0];
-		        tokens = tokens[1].split(':');
-		        if(mode == 'firefox'){
-			        this.lineNumber = tokens[tokens.length-1];
-		        } else {
-			        this.lineNumber = tokens[tokens.length-2];
-		        }
-		        tokens = tokens[0].split('/');
-		        this.fileName = tokens.pop();
-		        this.hostName = tokens.shift();
-		        this.filePath = tokens.join('/');
+                    tokens = functionLine.split('://');
+                    protocol = tokens[0];
+                    tokens = tokens[1].split(':');
+                    if(mode == 'firefox'){
+                        this.lineNumber = tokens[tokens.length-1];
+                    } else {
+                        this.lineNumber = tokens[tokens.length-2];
+                    }
+                    tokens = tokens[0].split('/');
+                    this.fileName = tokens.pop();
+                    this.hostName = tokens.shift();
+                    this.filePath = tokens.join('/');
+                } else {
+                    this.hasStackTrace = false;
+                }
+
 	        }
         }
 
