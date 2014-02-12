@@ -57,19 +57,10 @@ define([
 		        _httpObj.onreadystatechange = EventUtils.bind(self, self.onReadyStateChange, _httpObj);
 	        }
 
-	        //This may not turn out to be useful
-	        if(_httpObj.hasOwnProperty('onerror')){
-		        _httpObj.onerror = EventUtils.bind(self, self.onError, _httpObj);
-	        }
 
-	        if(_httpObj.hasOwnProperty('onprogress')){
-		        _httpObj.onprogress = EventUtils.bind(self, self.onProgress, _httpObj);
-	        }
-
-	        //This may not turn out to be useful
-	        if(_httpObj.hasOwnProperty('ontimeout')){
-		        _httpObj.ontimeout = EventUtils.bind(self, self.onTimeOut, _httpObj);
-	        }
+		    _httpObj.onerror = EventUtils.bind(self, self.onError, _httpObj);		//This may not turn out to be useful
+	        _httpObj.onprogress = EventUtils.bind(self, self.onProgress, _httpObj);
+	        _httpObj.ontimeout = EventUtils.bind(self, self.onTimeOut, _httpObj);	//This may not turn out to be useful
 
 	        //region Privileged Methods
 	        this.getUrl = function(){
