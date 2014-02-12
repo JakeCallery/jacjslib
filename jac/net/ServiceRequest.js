@@ -53,11 +53,7 @@ define([
 
 	        //set up events
 	        var self = this;
-	        if(_httpObj.hasOwnProperty('onreadystatechange')){
-		        _httpObj.onreadystatechange = EventUtils.bind(self, self.onReadyStateChange, _httpObj);
-	        }
-
-
+	        _httpObj.onreadystatechange = EventUtils.bind(self, self.onReadyStateChange, _httpObj);
 		    _httpObj.onerror = EventUtils.bind(self, self.onError, _httpObj);		//This may not turn out to be useful
 	        _httpObj.onprogress = EventUtils.bind(self, self.onProgress, _httpObj);
 	        _httpObj.ontimeout = EventUtils.bind(self, self.onTimeOut, _httpObj);	//This may not turn out to be useful
